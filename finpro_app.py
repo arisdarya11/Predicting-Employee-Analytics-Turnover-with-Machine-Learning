@@ -117,7 +117,8 @@ if st.button("🚀 Predict Turnover", use_container_width=True):
 
     # Progress bar
     st.markdown("### 🔍 Probability Visualization")
-    st.progress(probability)
+    st.progress(float(probability))
+
 
 st.markdown("---")
 
@@ -127,3 +128,4 @@ st.markdown("""
 Built with ❤️ using Streamlit & Machine Learning
 </div>
 """, unsafe_allow_html=True)
+
