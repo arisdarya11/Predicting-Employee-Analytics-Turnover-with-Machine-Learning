@@ -2,161 +2,141 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import joblib
-import shap
-import plotly.graph_objects as go
-import matplotlib.pyplot as plt
 from PIL import Image
+import plotly.express as px
 
-# ======================== PAGE CONFIG ========================
-st.set_page_config(
-    page_title="Employee Turnover Prediction",
-    page_icon="📉",
-    layout="wide"
-)
+# ---------------------------
+# CONFIG
+# ---------------------------
+st.set_page_config(page_title="Employee Turnover Prediction", layout="wide")
 
+# ---------------------------
+# LOAD MODEL
+# ---------------------------
+model = pickle.load(open("turnover_model.pkl", "rb"))
+feature_names = [
+    "satisfaction_level", "last_evaluation", "number_project",
+    "average_monthly_hours", "time_spend_company", "salary",
+    "Work_accident", "promotion_last_5years"
+]
 
-# ======================== LOAD FILES ========================
-def load_file(filename):
-    try:
-        return joblib.load(filename)
-    except:
-        with open(filename, "rb") as f:
-            return pickle.load(f)
+# ---------------------------
+# HEADER & IMAGE
+# ---------------------------
+st.title("📊 Employee Turnover Prediction App")
 
-model = load_file("xgb_attrition_model.pkl")
-scaler = load_file("scaler.pkl")
-encoder = load_file("encoder.pkl")
+image = Image.open("turnover-adalah.jpg")
+st.image(image, caption="Employee Turnover Illustration", use_column_width=True)
 
-# ======================== IMAGE HEADER ========================
-st.image("turnover-adalah.jpg", use_column_width=True)
+st.markdown("---")
 
-# ======================== TITLE ========================
-st.title("📉 Employee Turnover Prediction Dashboard")
-
-# ======================== INPUT SECTION ========================
-st.subheader("📌 Employee Data Input")
+# ---------------------------
+# INPUT FORM
+# ---------------------------
+st.subheader("🔍 Input Employee Data")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    satisfaction_level = st.slider("Satisfaction Level", 0.0, 1.0, 0.50)
-    last_evaluation = st.slider("Last Evaluation Score", 0.0, 1.0, 0.60)
+    satisfaction_level = st.slider("Satisfaction Level", 0.0, 1.0, 0.5)
+    last_evaluation = st.slider("Last Evaluation", 0.0, 1.0, 0.6)
     number_project = st.number_input("Number of Projects", 1, 10, 3)
+    salary = st.selectbox("Salary Level", ["low", "medium", "high"])
 
 with col2:
-    average_montly_hours = st.number_input("Average Monthly Hours", 50, 350, 160)
-    time_spend_company = st.number_input("Years at Company", 1, 20, 3)
+    average_monthly_hours = st.number_input("Average Monthly Hours", 80, 350, 160)
+    time_spend_company = st.number_input("Years at Company", 1, 15, 3)
+    work_accident = st.selectbox("Work Accident (Yes/No)", ["No", "Yes"])
+    promotion_last_5years = st.selectbox("Promotion in Last 5 Years (Yes/No)", ["No", "Yes"])
 
-work_accident_label = st.selectbox("Work Accident?", ["No", "Yes"])
-promotion_label = st.selectbox("Promotion in Last 5 Years?", ["No", "Yes"])
+# Convert Yes/No → 1/0
+work_accident = 1 if work_accident == "Yes" else 0
+promotion_last_5years = 1 if promotion_last_5years == "Yes" else 0
 
-work_accident = 1 if work_accident_label == "Yes" else 0
-promotion_last_5years = 1 if promotion_label == "Yes" else 0
+# Salary encoding
+salary_map = {"low": 0, "medium": 1, "high": 2}
+salary = salary_map[salary]
 
-salary = st.selectbox("Salary Level", ["low", "medium", "high"])
-salary_encoded = encoder.transform([salary])[0]
+# Prepare data
+input_data = np.array([[satisfaction_level, last_evaluation, number_project,
+                        average_monthly_hours, time_spend_company, salary,
+                        work_accident, promotion_last_5years]])
 
-# ======================== BUILD INPUT ========================
-model_columns = [
-    "satisfaction_level",
-    "last_evaluation",
-    "number_project",
-    "average_montly_hours",
-    "time_spend_company",
-    "salary",
-    "Work_accident",
-    "promotion_last_5years"
-]
+st.markdown("---")
 
-input_data = pd.DataFrame([[
-    satisfaction_level,
-    last_evaluation,
-    number_project,
-    average_montly_hours,
-    time_spend_company,
-    salary_encoded,
-    work_accident,
-    promotion_last_5years
-]], columns=model_columns)
+# ---------------------------
+# PREDICTION
+# ---------------------------
+if st.button("🔮 Predict Turnover"):
+    prediction = model.predict(input_data)[0]
+    probability = model.predict_proba(input_data)[0][1]
 
-scaled_input = scaler.transform(input_data)
-
-# ======================== PREDICT BUTTON ========================
-predict_btn = st.button("🔮 Predict Turnover")
-
-if predict_btn:
-
-    prediction = model.predict(scaled_input)[0]
-    probability = model.predict_proba(scaled_input)[0][1]
-
-    st.subheader("🎯 Prediction Result")
-
-    # ======================== BEAUTIFUL RESULT CARD ========================
+    st.subheader("📌 Prediction Result")
     if prediction == 1:
-        st.markdown(f"""
-        <div style="
-            padding: 20px;
-            border-radius: 12px;
-            background-color: #ffdddd;
-            border-left: 8px solid #ff4d4d;">
-            <h2>⚠️ High Risk of Attrition</h2>
-            <h3>Employee likely to <b>LEAVE</b></h3>
-            <h3>Probability: <b>{probability:.2f}</b></h3>
-        </div>
-        """, unsafe_allow_html=True)
+        st.error(f"⚠️ Employee is **likely to RESIGN**.\nProbability: **{probability:.2f}**")
     else:
-        st.markdown(f"""
-        <div style="
-            padding: 20px;
-            border-radius: 12px;
-            background-color: #ddffdd;
-            border-left: 8px solid #37c837;">
-            <h2>✅ Low Risk of Attrition</h2>
-            <h3>Employee likely to <b>STAY</b></h3>
-            <h3>Probability: <b>{probability:.2f}</b></h3>
-        </div>
-        """, unsafe_allow_html=True)
+        st.success(f"✅ Employee is predicted to **STAY**.\nProbability of turnover: **{probability:.2f}**")
 
-    # ======================== RADAR CHART ========================
-    st.subheader("🕸 Risk Radar Chart")
+    st.markdown("---")
 
-    radar_features = ["Satisfaction", "Evaluation", "Projects", "Monthly Hours", "Tenure"]
-    radar_values = [
-        satisfaction_level,
-        last_evaluation,
-        number_project / 10,
-        average_montly_hours / 350,
-        time_spend_company / 20
-    ]
-
-    fig_radar = go.Figure()
-    fig_radar.add_trace(go.Scatterpolar(
-        r=radar_values,
-        theta=radar_features,
-        fill="toself"
-    ))
-
-    st.plotly_chart(fig_radar, use_container_width=True)
-
-    # ======================== FEATURE IMPORTANCE ========================
+    # ---------------------------
+    # FEATURE IMPORTANCE
+    # ---------------------------
     st.subheader("📊 Feature Importance")
 
     try:
-        importances = model.feature_importances_
-        fig_imp = go.Figure([go.Bar(x=model_columns, y=importances)])
-        st.plotly_chart(fig_imp, use_container_width=True)
+        importance = model.feature_importances_
+        df_importance = pd.DataFrame({
+            "Feature": feature_names,
+            "Importance": importance
+        }).sort_values(by="Importance", ascending=False)
+
+        fig = px.bar(df_importance, x="Feature", y="Importance",
+                     title="Feature Importance in Prediction")
+        st.plotly_chart(fig, use_container_width=True)
+
+        # ----------------------------------
+        # EXPLANATION SECTION
+        # ----------------------------------
+        st.subheader("📝 Explanation of Results")
+
+        explanation = """
+### 🔍 What Influenced the Prediction?
+
+Based on the model, the following features have the strongest impact on predicting employee turnover:
+
+1. **Time Spent at Company**  
+   Employees with longer years in the company show higher risk of turnover due to stagnation or burnout.
+
+2. **Number of Projects**  
+   Too many or too few projects can cause disengagement or overwork.
+
+3. **Satisfaction Level**  
+   One of the strongest indicators: lower satisfaction → higher turnover probability.
+
+4. **Last Evaluation Score**  
+   Extremely low or extremely high evaluations may correlate with turnover.
+
+5. **Monthly Working Hours**  
+   Very high working hours often indicate burnout risk.
+
+6. **Work Accident**  
+   Employees who experienced accidents usually have slight different retention patterns.
+
+7. **Promotion in Last 5 Years**  
+   Employees without promotion for long periods may feel stuck.
+
+8. **Salary Level**  
+   Lower salary generally increases turnover risk, but impact is weaker in this dataset.
+
+---
+
+### 🎯 Final Insight
+The prediction is generated based on the combination of these features and how strongly each contributes to the model.  
+Understanding these factors can help HR identify risk early and create better retention strategies.
+"""
+        st.markdown(explanation)
+
     except:
-        st.info("Feature importance unavailable.")
-
-    # ======================== SHAP EXPLAINABILITY ========================
-    st.subheader("🔥 SHAP Explainability")
-
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer(scaled_input)
-    sample_sv = shap_values[0]
-
-    fig, ax = plt.subplots(figsize=(8, 6))
-    shap.plots.waterfall(sample_sv, show=False)
-    st.pyplot(fig)
+        st.warning("Model does not provide feature importance.")
 
