@@ -1,9 +1,10 @@
-streamlit
-pandas
-numpy
-xgboost
-scikit-learn
-joblib
+matplotlib
 shap
 plotly
-reportlab
+fpdf
+joblib
+scikit-learn
+xgboost
+pandas
+numpy
+streamlit
