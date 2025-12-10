@@ -6,6 +6,7 @@ import joblib
 import shap
 import plotly.graph_objects as go
 from fpdf import FPDF
+import matplotlib.pyplot as plt
 
 # ======================== LOAD FILES ========================
 
@@ -26,16 +27,6 @@ st.set_page_config(
     page_icon="📉",
     layout="wide"
 )
-
-# ======================== DARK MODE ========================
-dark_mode = st.sidebar.checkbox("🌙 Dark Mode", value=False)
-
-if dark_mode:
-    st.markdown("""
-        <style>
-        body { background-color: #0e1117; color: #FAFAFA; }
-        </style>
-    """, unsafe_allow_html=True)
 
 # ======================== FIXED MODEL COLUMNS ========================
 model_columns = [
@@ -130,20 +121,17 @@ if predict_btn:
     except:
         st.info("Feature importance unavailable.")
 
-    # ======================== SHAP ========================
+    # ======================== SHAP (FIXED) ========================
     st.subheader("🔥 SHAP Explainability")
 
     explainer = shap.TreeExplainer(model)
-    shap_values = explainer.shap_values(scaled_input)
+    shap_values = explainer(scaled_input)
 
-    # Generate waterfall plot (matplotlib figure)
-    fig_shap = shap.plots._waterfall.waterfall_figure(
-        explainer.expected_value,
-        shap_values[0],
-        feature_names=model_columns
-    )
+    sample_sv = shap_values[0]
 
-    st.pyplot(fig_shap)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    shap.plots.waterfall(sample_sv, show=False)
+    st.pyplot(fig)
 
     # ======================== PDF DOWNLOAD ========================
     st.subheader("📥 Download PDF Report")
