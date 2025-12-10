@@ -144,7 +144,7 @@ Model ini menunjukkan kemampuan generalisasi yang baik dan layak digunakan untuk
 
 Modern Machine Learning App for Employee Turnover Analysis powered by XGBoost:
 
-https://turnover-prediction-app.streamlit.app
+[https://turnover-prediction-app.streamlit.app](https://predicting-employee-analytics-turnover-with-machine-learning.streamlit.app/)
 
 ---
 
