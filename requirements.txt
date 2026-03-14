@@ -7,5 +7,4 @@ xgboost
 shap
 plotly
 matplotlib
-Pillow
 joblib
