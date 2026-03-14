@@ -31,7 +31,7 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Sora:wght@300;400;600;700&display=swap');
 
 html, body, [class*="css"] { font-family: 'Sora', sans-serif; }
-.stApp { background: #ffffff; color: #1a1a2e; }
+.stApp { background: #ffffff; color: #000000; }
 [data-testid="stHeader"] { background: transparent; }
 [data-testid="stToolbar"] { display: none; }
 
@@ -45,17 +45,17 @@ html, body, [class*="css"] { font-family: 'Sora', sans-serif; }
 }
 .nav-logo {
     font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 600;
-    color: #0f766e; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #000000; letter-spacing: 0.08em; text-transform: uppercase;
 }
 .nav-badge {
-    font-family: 'DM Mono', monospace; font-size: 11px; color: #64748b;
+    font-family: 'DM Mono', monospace; font-size: 11px; color: #000000;
     background: #f8fafc; border: 1px solid #e2e8f0;
     padding: 4px 12px; border-radius: 20px;
 }
 
 .section-label {
     font-family: 'DM Mono', monospace; font-size: 10px;
-    letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8;
+    letter-spacing: 0.15em; text-transform: uppercase; color: #000000;
     margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
 }
 .section-label::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
@@ -72,13 +72,13 @@ html, body, [class*="css"] { font-family: 'Sora', sans-serif; }
 .kpi-card.neutral::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
 .kpi-label {
     font-family: 'DM Mono', monospace; font-size: 10px;
-    letter-spacing: 0.12em; text-transform: uppercase; color: #94a3b8; margin-bottom: 8px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: #000000; margin-bottom: 8px;
 }
 .kpi-value { font-family: 'DM Mono', monospace; font-size: 32px; font-weight: 500; line-height: 1; margin-bottom: 4px; }
 .kpi-value.danger  { color: #f97316; }
 .kpi-value.safe    { color: #10b981; }
 .kpi-value.neutral { color: #6366f1; }
-.kpi-sub { font-size: 11px; color: #94a3b8; }
+.kpi-sub { font-size: 11px; color: #000000; }
 
 .result-banner {
     border-radius: 12px; padding: 28px 32px; margin-bottom: 24px;
@@ -91,13 +91,13 @@ html, body, [class*="css"] { font-family: 'Sora', sans-serif; }
 .result-banner-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
 .result-banner-title.danger { color: #ea580c; }
 .result-banner-title.safe   { color: #16a34a; }
-.result-banner-sub { font-size: 13px; color: #64748b; }
+.result-banner-sub { font-size: 13px; color: #000000; }
 .result-banner-prob { font-family: 'DM Mono', monospace; font-size: 48px; font-weight: 600; text-align: right; }
 .result-banner-prob.danger { color: #f97316; }
 .result-banner-prob.safe   { color: #10b981; }
 .result-banner-prob-label {
     font-family: 'DM Mono', monospace; font-size: 10px;
-    letter-spacing: 0.12em; text-transform: uppercase; color: #94a3b8; text-align: right;
+    letter-spacing: 0.12em; text-transform: uppercase; color: #000000; text-align: right;
 }
 
 .reco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
@@ -109,23 +109,23 @@ html, body, [class*="css"] { font-family: 'Sora', sans-serif; }
     font-family: 'DM Mono', monospace; font-size: 10px;
     letter-spacing: 0.1em; text-transform: uppercase; color: #ea580c; margin-bottom: 4px;
 }
-.reco-text { font-size: 13px; color: #374151; line-height: 1.5; }
+.reco-text { font-size: 13px; color: #000000; line-height: 1.5; }
 
 .info-box {
     background: #f0f9ff; border: 1px solid #bae6fd; border-left: 3px solid #0284c7;
     border-radius: 8px; padding: 16px 20px; margin-bottom: 16px;
-    font-family: 'DM Mono', monospace; font-size: 12px; color: #475569; line-height: 1.8;
+    font-family: 'DM Mono', monospace; font-size: 12px; color: #000000; line-height: 1.8;
 }
 
 div[data-testid="stNumberInput"] input,
 div[data-testid="stSelectbox"] > div > div {
     background: #f8fafc !important; border: 1px solid #e2e8f0 !important;
-    color: #1e293b !important; border-radius: 6px !important;
+    color: #000000 !important; border-radius: 6px !important;
     font-family: 'DM Mono', monospace !important; font-size: 13px !important;
 }
 label[data-testid="stWidgetLabel"] p {
     font-family: 'DM Mono', monospace !important; font-size: 11px !important;
-    letter-spacing: 0.08em !important; text-transform: uppercase !important; color: #64748b !important;
+    letter-spacing: 0.08em !important; text-transform: uppercase !important; color: #000000 !important;
 }
 div[data-testid="stButton"] > button {
     background: linear-gradient(135deg, #0f766e, #0d9488) !important;
@@ -143,10 +143,10 @@ hr { border-color: #e2e8f0 !important; }
 div[data-testid="stTabs"] button {
     font-family: 'DM Mono', monospace !important;
     font-size: 11px !important; letter-spacing: 0.1em !important;
-    text-transform: uppercase !important; color: #64748b !important;
+    text-transform: uppercase !important; color: #000000 !important;
 }
 div[data-testid="stTabs"] button[aria-selected="true"] {
-    color: #0f766e !important; border-bottom-color: #0f766e !important;
+    color: #000000 !important; border-bottom-color: #000000 !important;
 }
 div[data-testid="stDataFrame"] { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
 </style>
@@ -306,9 +306,9 @@ with tab1:
             fig_gauge = go.Figure(go.Indicator(
                 mode="gauge+number", value=prob_pct,
                 number={"suffix": "%", "font": {"size": 42, "color": accent, "family": "DM Mono"}},
-                title={"text": "Attrition Probability", "font": {"size": 13, "color": "#94a3b8", "family": "DM Mono"}},
+                title={"text": "Attrition Probability", "font": {"size": 13, "color": "#000000", "family": "DM Mono"}},
                 gauge={
-                    "axis": {"range": [0, 100], "tickcolor": "#e2e8f0", "tickfont": {"color": "#94a3b8", "size": 10}},
+                    "axis": {"range": [0, 100], "tickcolor": "#e2e8f0", "tickfont": {"color": "#000000", "size": 10}},
                     "bar":  {"color": accent, "thickness": 0.25},
                     "bgcolor": "#ffffff", "bordercolor": "#e2e8f0",
                     "steps": [
@@ -316,12 +316,12 @@ with tab1:
                         {"range": [40, 70], "color": step_mid},
                         {"range": [70,100], "color": step_high},
                     ],
-                    "threshold": {"line": {"color": "#374151", "width": 2}, "thickness": 0.8, "value": 70}
+                    "threshold": {"line": {"color": "#000000", "width": 2}, "thickness": 0.8, "value": 70}
                 }
             ))
             fig_gauge.update_layout(
                 paper_bgcolor="#ffffff", plot_bgcolor="#ffffff",
-                height=280, margin=dict(t=40, b=10, l=20, r=20), font_color="#1e293b"
+                height=280, margin=dict(t=40, b=10, l=20, r=20), font_color="#000000"
             )
             st.plotly_chart(fig_gauge, use_container_width=True, config={"displayModeBar": False})
 
@@ -342,11 +342,11 @@ with tab1:
                 paper_bgcolor="#ffffff",
                 polar=dict(
                     bgcolor="#f8fafc",
-                    radialaxis=dict(visible=True, range=[0,1], tickfont=dict(color="#94a3b8", size=9), gridcolor="#e2e8f0", linecolor="#e2e8f0"),
-                    angularaxis=dict(tickfont=dict(color="#374151", size=11, family="DM Mono"), gridcolor="#e2e8f0", linecolor="#e2e8f0")
+                    radialaxis=dict(visible=True, range=[0,1], tickfont=dict(color="#000000", size=9), gridcolor="#e2e8f0", linecolor="#e2e8f0"),
+                    angularaxis=dict(tickfont=dict(color="#000000", size=11, family="DM Mono"), gridcolor="#e2e8f0", linecolor="#e2e8f0")
                 ),
                 showlegend=False,
-                title=dict(text="Employee Risk Profile", font=dict(size=13, color="#94a3b8", family="DM Mono")),
+                title=dict(text="Employee Risk Profile", font=dict(size=13, color="#000000", family="DM Mono")),
                 height=280, margin=dict(t=50, b=10, l=40, r=40),
             )
             st.plotly_chart(fig_radar, use_container_width=True, config={"displayModeBar": False})
@@ -360,12 +360,12 @@ with tab1:
             marker=dict(color=bar_colors, line=dict(width=0)),
             text=[f"{v:.3f}" for v in imp_series.values],
             textposition="outside",
-            textfont=dict(family="DM Mono", size=10, color="#94a3b8"),
+            textfont=dict(family="DM Mono", size=10, color="#000000"),
         ))
         fig_imp.update_layout(
             paper_bgcolor="#ffffff", plot_bgcolor="#ffffff",
             xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-            yaxis=dict(tickfont=dict(family="DM Mono", size=11, color="#374151"), gridcolor="#f1f5f9"),
+            yaxis=dict(tickfont=dict(family="DM Mono", size=11, color="#000000"), gridcolor="#f1f5f9"),
             height=300, margin=dict(t=10, b=10, l=160, r=80), bargap=0.35,
         )
         st.plotly_chart(fig_imp, use_container_width=True, config={"displayModeBar": False})
@@ -416,10 +416,10 @@ with tab2:
 
     st.markdown(f"""
     <div class="info-box">
-        <b style="color:#0f172a;">Kolom yang dibutuhkan dalam file:</b><br>
+        <b style="color:#000000;">Kolom yang dibutuhkan dalam file:</b><br>
         nama_karyawan &nbsp;·&nbsp; {' &nbsp;·&nbsp; '.join(final_columns)}<br><br>
-        <b style="color:#0f172a;">Salary:</b> low · medium · high &nbsp;&nbsp;
-        <b style="color:#0f172a;">Binary (Work_accident, promotion_last_5years):</b> 0 atau 1
+        <b style="color:#000000;">Salary:</b> low · medium · high &nbsp;&nbsp;
+        <b style="color:#000000;">Binary (Work_accident, promotion_last_5years):</b> 0 atau 1
     </div>
     """, unsafe_allow_html=True)
 
@@ -552,10 +552,10 @@ with tab2:
             fig_pie.update_layout(
                 paper_bgcolor="#ffffff",
                 showlegend=True,
-                legend=dict(font=dict(family="DM Mono", size=11, color="#64748b"), bgcolor="rgba(0,0,0,0)"),
-                title=dict(text=f"Risk Distribution · {total} Karyawan", font=dict(size=13, color="#94a3b8", family="DM Mono")),
+                legend=dict(font=dict(family="DM Mono", size=11, color="#000000"), bgcolor="rgba(0,0,0,0)"),
+                title=dict(text=f"Risk Distribution · {total} Karyawan", font=dict(size=13, color="#000000", family="DM Mono")),
                 annotations=[dict(text=f"<b>{avg_prob:.1f}%</b><br>avg risk", x=0.5, y=0.5, font_size=14,
-                                  font_color="#374151", font_family="DM Mono", showarrow=False)],
+                                  font_color="#000000", font_family="DM Mono", showarrow=False)],
                 height=300, margin=dict(t=50, b=10, l=10, r=10),
             )
             st.plotly_chart(fig_pie, use_container_width=True, config={"displayModeBar": False})
@@ -569,9 +569,9 @@ with tab2:
             fig_hist.add_vline(x=40, line=dict(color="#6366f1", width=1.5, dash="dot"))
             fig_hist.update_layout(
                 paper_bgcolor="#ffffff", plot_bgcolor="#f8fafc",
-                xaxis=dict(title="Resign Probability (%)", tickfont=dict(family="DM Mono", size=10, color="#64748b"), gridcolor="#e2e8f0", color="#64748b"),
-                yaxis=dict(title="Jumlah Karyawan", tickfont=dict(family="DM Mono", size=10, color="#64748b"), gridcolor="#e2e8f0", color="#64748b"),
-                title=dict(text="Distribusi Probabilitas", font=dict(size=13, color="#94a3b8", family="DM Mono")),
+                xaxis=dict(title="Resign Probability (%)", tickfont=dict(family="DM Mono", size=10, color="#000000"), gridcolor="#e2e8f0", color="#000000"),
+                yaxis=dict(title="Jumlah Karyawan", tickfont=dict(family="DM Mono", size=10, color="#000000"), gridcolor="#e2e8f0", color="#000000"),
+                title=dict(text="Distribusi Probabilitas", font=dict(size=13, color="#000000", family="DM Mono")),
                 height=300, margin=dict(t=50, b=10, l=10, r=10), bargap=0.05,
             )
             st.plotly_chart(fig_hist, use_container_width=True, config={"displayModeBar": False})
@@ -599,7 +599,7 @@ with tab2:
 st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
 <div style="text-align:center;padding:20px 0;border-top:2px solid #e2e8f0;">
-    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#94a3b8;letter-spacing:0.1em;">
+    <span style="font-family:'DM Mono',monospace;font-size:11px;color:#000000;letter-spacing:0.1em;">
         HR ATTRITION INTELLIGENCE · XGBOOST · ROC-AUC 0.9853 · BUILT WITH STREAMLIT
     </span>
 </div>
