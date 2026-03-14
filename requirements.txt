@@ -7,3 +7,4 @@ shap
 plotly
 matplotlib
 joblib
+openpyxl
